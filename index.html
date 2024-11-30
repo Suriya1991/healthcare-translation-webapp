@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Healthcare Translation Web App</title>
+</head>
+<body>
+    <h1>Healthcare Translation Web App</h1>
+
+    <!-- Input Language Selection (Static, always English) -->
+    <label for="input-language">Select Input Language: </label>
+    <select id="input-language">
+        <option value="en">English</option>
+    </select><br><br>
+
+    <!-- Output Language Selection -->
+    <label for="output-language">Select Output Language: </label>
+    <select id="output-language">
+        <option value="fr">French</option>
+        <option value="es">Spanish</option>
+        <option value="hi">Hindi</option>
+    </select><br><br>
+
+    <!-- Button to Start Speech Recognition -->
+    <button id="start-recognition">Start Recognition</button>
+
+    <!-- Display Recognized Text -->
+    <div id="transcript"></div>
+
+    <!-- Display Translated Text -->
+    <div id="translated"></div>
+
+    <!-- Script File -->
+    <script src="script.js"></script>
+</body>
+</html>
