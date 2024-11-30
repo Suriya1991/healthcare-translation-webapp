@@ -92,7 +92,7 @@
             font-weight: bold;
         }
 
-        /* Center the heading and patient name */
+        /* Center the heading */
         .header-container {
             display: flex;
             flex-direction: column;
@@ -116,7 +116,7 @@
         <!-- Header Section -->
         <div class="header-container">
             <h1>Healthcare Translation Web App</h1>
-            <h2 id="patient-name-display"></h2>
+            <!-- Removed patient name display here -->
         </div>
 
         <!-- Input Language Selection -->
@@ -130,7 +130,6 @@
         <select id="output-language">
             <option value="fr">French</option>
             <option value="es">Spanish</option>
-            <option value="hi">Hindi</option>
         </select><br><br>
 
         <!-- Buttons -->
@@ -157,7 +156,7 @@
             window.location.href = "login.html";  // Redirect to login if not logged in
         } else {
             document.getElementById("profile-name").innerText = username;  // Show username in profile menu
-            document.getElementById("patient-name-display").innerText = "Patient Name: " + localStorage.getItem("patientName");  // Display patient name from localStorage
+            // Removed patient name display code here
         }
 
         // Logout functionality
