@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patient Details</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Basic Styling */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+            text-align: center;
+        }
+
+        h1 {
+            color: #333;
+            font-size: 2.5em;
+            margin-top: 20px;
+        }
+
+        .container {
+            padding: 20px;
+            max-width: 600px;
+            margin: 0 auto;
+            text-align: center;
+            background-color: white;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            border-radius: 8px;
+        }
+
+        label {
+            margin-top: 10px;
+            font-weight: bold;
+            font-size: 1.1em;
+        }
+
+        input, select {
+            padding: 10px;
+            margin: 10px 0;
+            width: 100%;
+            font-size: 1em;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        button {
+            background-color: green;
+            color: white;
+            padding: 15px 30px;
+            font-size: 18px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        button:hover {
+            background-color: darkgreen;
+        }
+
+        /* Patient Form Section */
+        .patient-form {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .patient-form input, .patient-form select {
+            max-width: 400px;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Enter Patient Details</h1>
+
+        <form id="patient-form" class="patient-form">
+            <label for="patient-name">Name:</label>
+            <input type="text" id="patient-name" required><br>
+
+            <label for="patient-age">Age:</label>
+            <input type="number" id="patient-age" required><br>
+
+            <label for="patient-place">Place:</label>
+            <input type="text" id="patient-place" required><br>
+
+            <label for="patient-sex">Sex:</label>
+            <select id="patient-sex" required>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+                <option value="other">Other</option>
+            </select><br>
+
+            <button type="submit">Submit Patient Info</button>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById("patient-form").addEventListener("submit", function(event) {
+            event.preventDefault();
+
+            // Save patient details to localStorage
+            const patientDetails = {
+                name: document.getElementById("patient-name").value,
+                age: document.getElementById("patient-age").value,
+                place: document.getElementById("patient-place").value,
+                sex: document.getElementById("patient-sex").value,
+            };
+
+            localStorage.setItem("patientDetails", JSON.stringify(patientDetails));
+
+            // After submitting, redirect to the main app interface (start recognition)
+            window.location.href = "main-app.html";
+        });
+    </script>
+
+</body>
+</html>

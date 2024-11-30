@@ -1,66 +1,40 @@
-// Get DOM elements
-const startRecognitionButton = document.getElementById('start-recognition');
-const speakButton = document.getElementById('speak-button');
-const transcriptDiv = document.getElementById('transcript');
-const translatedDiv = document.getElementById('translated');
-let translatedText = ''; // Store translated text for later speech
-
-// Initialize Speech Recognition API
+// Initialize the speech recognition API
 const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
-recognition.lang = 'en-US';
+recognition.continuous = false;
+recognition.lang = "en-US"; // Default to English for input
+recognition.interimResults = false;
 
-// Start speech recognition on button click
-startRecognitionButton.addEventListener('click', () => {
+// Start speech recognition when the button is clicked
+document.getElementById("start-recognition").addEventListener("click", function() {
     recognition.start();
-    console.log('Speech recognition has started');
+    console.log("Recognition started");
 });
 
-// Handle speech recognition results
-recognition.onresult = async (event) => {
+// When speech is detected, process the results
+recognition.onresult = async function(event) {
     const transcript = event.results[0][0].transcript;
-    transcriptDiv.textContent = `Recognized: ${transcript}`;
-
-    // Translate the recognized text
-    const inputLang = 'en'; // Static as per your requirement
-    const outputLang = document.getElementById('output-language').value;
-    const translation = await translateText(transcript, inputLang, outputLang);
-    translatedText = translation;
-    translatedDiv.textContent = `Translated: ${translatedText}`;
-
-    // Enable Speak button once translation is available
-    speakButton.disabled = false;
-};
-
-// Handle recognition end event
-recognition.onend = () => {
-    console.log('Recognition ended');
-};
-
-// Function to handle the text-to-speech
-function speakTranslation() {
-    if (translatedText) {
-        const speech = new SpeechSynthesisUtterance(translatedText);
-        speech.lang = getLangForSpeech(document.getElementById('output-language').value);
-        window.speechSynthesis.speak(speech);
+    document.getElementById("transcript").innerText = "You said: " + transcript;
+    
+    // Translate the text
+    const inputLang = "en"; // Hardcoded as English for simplicity
+    const outputLang = document.getElementById("output-language").value;
+    
+    try {
+        const translatedText = await translateText(transcript, inputLang, outputLang);
+        document.getElementById("translated").innerText = translatedText;
+    } catch (error) {
+        document.getElementById("translated").innerText = "Error in translation.";
     }
-}
+};
 
-// Function to map language code to speech language
-function getLangForSpeech(outputLang) {
-    const langMap = {
-        'fr': 'fr-FR',
-        'es': 'es-ES',
-        'hi': 'hi-IN'
-    };
-    return langMap[outputLang] || 'en-US'; // Default to English if no match
-}
+// Handle the end of the speech recognition
+recognition.onend = function() {
+    console.log("Recognition ended");
+};
 
-// Add event listener to the Speak button
-speakButton.addEventListener('click', speakTranslation);
-
-// Function to handle translation (same as previous)
+// Function to handle text translation using Hugging Face API
 async function translateText(text, inputLang, targetLang) {
-    const apiKey = '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';
+    const apiKey = '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'; // Hugging Face API Key
     const modelUrl = `https://api-inference.huggingface.co/models/Helsinki-NLP/opus-mt-${inputLang}-${targetLang}`;
     
     const requestOptions = {
@@ -74,7 +48,7 @@ async function translateText(text, inputLang, targetLang) {
 
     try {
         const response = await fetch(modelUrl, requestOptions);
-
+        
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
@@ -86,3 +60,15 @@ async function translateText(text, inputLang, targetLang) {
         return "Error in translation.";
     }
 }
+
+// Speak the translated text when the "Speak Translation" button is clicked
+document.getElementById("speak-translation").addEventListener("click", function() {
+    const translatedText = document.getElementById("translated").innerText;
+
+    if (translatedText) {
+        const utterance = new SpeechSynthesisUtterance(translatedText);
+        window.speechSynthesis.speak(utterance);
+    } else {
+        alert("No translated text available.");
+    }
+});

@@ -1,69 +1,16 @@
-/* Base styles - Mobile First */
 body {
     font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #f4f4f9;
     text-align: center;
+    background-color: #f4f4f9;
 }
 
-h1 {
+h1, h2 {
     color: #333;
 }
 
-button {
-    padding: 10px 20px;
-    font-size: 16px;
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    cursor: pointer;
-    margin: 20px 0;
+label {
+    margin-top: 10px;
+    font-weight: bold;
 }
 
-button:hover {
-    background-color: #45a049;
-}
-
-#transcript, #translated {
-    font-size: 18px;
-    color: #333;
-    margin: 20px 0;
-}
-
-/* Media Queries */
-@media (min-width: 768px) {
-    /* For tablets and larger screens */
-    body {
-        max-width: 900px;
-        margin: 0 auto;
-        padding: 20px;
-    }
-
-    button {
-        font-size: 18px;
-        padding: 15px 30px;
-    }
-
-    #transcript, #translated {
-        font-size: 20px;
-    }
-}
-
-@media (min-width: 1024px) {
-    /* For larger desktops */
-    body {
-        max-width: 1100px;
-        margin: 0 auto;
-        padding: 40px;
-    }
-
-    button {
-        font-size: 20px;
-        padding: 20px 40px;
-    }
-
-    #transcript, #translated {
-        font-size: 22px;
-    }
-}
+input, select,
